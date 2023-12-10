@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.motorin.MySecondTestAppSpringBoot.exception.UnsupportedCodeException;
 import ru.motorin.MySecondTestAppSpringBoot.exception.ValidationFailedException;
 import ru.motorin.MySecondTestAppSpringBoot.model.*;
+import ru.motorin.MySecondTestAppSpringBoot.service.ModifyRequestService;
 import ru.motorin.MySecondTestAppSpringBoot.service.ModifyResponseService;
 import ru.motorin.MySecondTestAppSpringBoot.service.ValidationService;
 import ru.motorin.MySecondTestAppSpringBoot.util.DateTimeUtil;
@@ -26,12 +27,15 @@ public class MyController {
 
     private final ValidationService validationService;
     private final ModifyResponseService modifyResponseService;
+    private final ModifyRequestService modifyRequestService;
     @Autowired
     public MyController(ValidationService validationService,
-                        @Qualifier("ModifySystemTimeResponseService") ModifyResponseService modifyResponseService) {
+                        @Qualifier("ModifySystemTimeResponseService") ModifyResponseService modifyResponseService,
+                        @Qualifier("ModifySystemTimeRequestService") ModifyRequestService modifyRequestService) {
 
         this.validationService = validationService;
         this.modifyResponseService = modifyResponseService;
+        this.modifyRequestService = modifyRequestService;
     }
     @PostMapping(value = "/feedback")
     public ResponseEntity<Response> feedback(@Valid @RequestBody Request request,
@@ -73,7 +77,7 @@ public class MyController {
         }
         modifyResponseService.modify(response);
         log.info("modified response: {}", response);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        modifyRequestService.modify(request);
+        return new ResponseEntity<>(modifyResponseService.modify(response), HttpStatus.OK);
     }
 }
