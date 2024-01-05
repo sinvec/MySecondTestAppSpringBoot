@@ -47,6 +47,7 @@ public class MyController {
                 .uid(request.getUid())
                 .operationUid(request.getOperationUid())
                 .systemTime(DateTimeUtil.getCustomFormat().format(new Date()))
+                .annualBonus(request.getBonus())
                 .code(Codes.SUCCESS)
                 .errorCode(ErrorCodes.EMPTY)
                 .errorMessage(ErrorMessages.EMPTY)

@@ -15,21 +15,64 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Request {
+    /***
+     * Уникальный идентификатор сообщения
+     */
     @NotBlank(message = "Не заполнено поле UID")
     @Size(max = 32, message = "{validation.name.size.too_long}")
     private String uid;
+    /***
+     * Уникальный идентификатор операции
+     */
     @NotBlank(message = "Не заполнено поле operationUid")
     @Size(max = 32, message = "{validation.name.size.too_long}")
     private String operationUid;
+    /***
+     * Имя системы отправителя
+     */
     private String systemName;
+    /***
+     * Время создания сообщения
+     */
     @NotBlank(message = "Не заполнено поле systemTime")
     private String systemTime;
+    /***
+     * Наименование ресурса
+     */
     private String source;
+    /***
+     * Должность сотрудника
+     */
+    private Positions position;
+    /***
+     * ЗП сотрудника
+     */
+    private Double salary;
+    /***
+     * Коэффициент ежегодной премии
+     */
+    private Double bonus;
+    /***
+     * Количество отработанных дней
+     */
+    private Integer workDays;
+    /***
+     * Уникальный идентификатор коммуникации
+     */
     @Min(1)
     @Max(100000)
     private int communicationId;
+    /***
+     * Уникальный идентификатор шаблона
+     */
     private int templateId;
+    /***
+     * Код продукта
+     */
     private int productCode;
+    /***
+     * Смс код
+     */
     private int smsCode;
 
     @Override
@@ -40,6 +83,10 @@ public class Request {
                 ", systemName='" + systemName + '\'' + 
                 ", systemTime='" + systemTime + '\'' +
                 ", source='" + source + '\'' +
+                ", position='" + position + '\'' +
+                ", salary='" + salary + '\'' +
+                ", bonus='" + bonus + '\'' +
+                ", workDays='" + workDays + '\'' +
                 ", communicationId=" + communicationId +
                 ", templateId=" + templateId +
                 ", productCode=" + productCode +
